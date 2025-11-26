@@ -1,0 +1,51 @@
+<Schema name="New Schema1">
+  <Cube name="CuboFilmes" visible="true" cache="true" enabled="true">
+    <Table name="fato_filme"/>
+
+    <!-- DIM FILME -->
+    <Dimension name="dim_filme" foreignKey="id_filme_sk" type="StandardDimension">
+      <Hierarchy name="HierarquiaFilme" hasAll="true" primaryKey="id_filme_sk" primaryKeyTable="dim_filme">
+        <Level name="titulo" table="dim_filme" column="titulo" type="String"/>
+        <Level name="link_imdb" table="dim_filme" column="link_imdb" type="String"/>
+        <Level name="classificacao_mpa" table="dim_filme" column="classificacao_mpa" type="String"/>
+        <Level name="duracao_minutos" table="dim_filme" column="duracao_minutos" type="Integer"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- DIM DIRETOR -->
+    <Dimension name="dim_diretor" foreignKey="id_diretor_sk" type="StandardDimension">
+      <Hierarchy name="HierarquiaDiretor" hasAll="true" primaryKey="id_diretor_sk" primaryKeyTable="dim_diretor">
+        <Level name="nome_diretor" table="dim_diretor" column="nome_diretor" type="String"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- DIM IDIOMA -->
+    <Dimension name="dim_idioma" foreignKey="id_idioma_sk" type="StandardDimension">
+      <Hierarchy name="HierarquiaIdioma" visible="true" hasAll="true" primaryKey="id_idioma_sk" primaryKeyTable="dim_idioma">
+        <Level name="nome_idioma" table="dim_idioma" column="nome_idioma" type="String"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- DIM TEMPO -->
+    <Dimension name="dim_tempo" foreignKey="id_tempo_sk" type="TimeDimension">
+      <Hierarchy name="HierarquiaTempo" hasAll="true" primaryKey="id_tempo_sk" primaryKeyTable="dim_tempo">
+        <Level name="ano" table="dim_tempo" column="ano" type="Integer" levelType="TimeYears"/>
+        <Level name="trimestre" table="dim_tempo" column="trimestre" type="Integer" levelType="TimeQuarters"/>
+        <Level name="mes" table="dim_tempo" column="mes" type="Integer" levelType="TimeMonths"/>
+        <Level name="nome_mes" table="dim_tempo" column="nome_mes" type="String" levelType="TimeMonths"/>
+        <Level name="data_completa" table="dim_tempo" column="data_completa" type="Date" levelType="TimeDays"/>
+      </Hierarchy>
+    </Dimension>
+
+    <!-- MEDIDAS -->
+    <Measure name="bilheteria_abertura" column="bilheteria_abertura" aggregator="sum"/>
+    <Measure name="bilheteria_eua_canada" column="bilheteria_eua_canada" aggregator="sum"/>
+    <Measure name="bilheteria_mundial" column="bilheteria_mundial" aggregator="sum"/>
+    <Measure name="nota_imdb" column="nota_imdb" aggregator="sum"/>
+    <Measure name="nominacoes_premios" column="nominacoes_premios" aggregator="sum"/>
+    <Measure name="orcamento" column="orcamento" aggregator="sum"/>
+    <Measure name="vitorias_oscar" column="vitorias_oscar" aggregator="sum"/>
+    <Measure name="vitorias_premios" column="vitorias_premios" aggregator="sum"/>
+    <Measure name="votos_imdb" column="votos_imdb" aggregator="sum"/>
+  </Cube>
+</Schema>

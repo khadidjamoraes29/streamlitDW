@@ -1,0 +1,129 @@
+{
+  "_id": "modelo_couchdb_filmes",
+  "type": "documentation",
+  "description": "Modelo de dados CouchDB para sistema de filmes",
+  "collections": {
+    "filmes": {
+      "description": "Documento principal contendo informações completas do filme",
+      "structure": {
+        "_id": "filme:imdb_id ou uuid",
+        "_rev": "revision_hash",
+        "type": "filme",
+        "titulo": "string",
+        "link_imdb": "string",
+        "ano_lancamento": "number",
+        "duracao_minutos": "number",
+        "classificacao_mpa": "string",
+        "nota_imdb": "number",
+        "votos_imdb": "number",
+        "financeiro": {
+          "orcamento": "number",
+          "bilheteria": {
+            "mundial": "number",
+            "eua_canada": "number",
+            "abertura": "number"
+          }
+        },
+        "premios": {
+          "vitorias": "number",
+          "nominacoes": "number",
+          "oscars": "number"
+        },
+        "pessoas": {
+          "diretores": [
+            {
+              "nome": "string",
+              "id_pessoa": "string"
+            }
+          ],
+          "atores_principais": [
+            {
+              "nome": "string",
+              "id_pessoa": "string",
+              "ordem_credito": "number"
+            }
+          ],
+          "roteiristas": [
+            {
+              "nome": "string",
+              "id_pessoa": "string"
+            }
+          ]
+        },
+        "generos": ["string"],
+        "paises_origem": ["string"],
+        "empresas_producao": ["string"],
+        "idiomas": ["string"],
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+    },
+    "pessoas": {
+      "description": "Documento para agregação de informações sobre pessoas (diretores, atores, roteiristas)",
+      "structure": {
+        "_id": "pessoa:nome_normalizado ou uuid",
+        "_rev": "revision_hash",
+        "type": "pessoa",
+        "nome": "string",
+        "nome_normalizado": "string",
+        "participacoes": {
+          "como_diretor": [
+            {
+              "filme_id": "string",
+              "titulo_filme": "string",
+              "ano": "number"
+            }
+          ],
+          "como_ator": [
+            {
+              "filme_id": "string",
+              "titulo_filme": "string",
+              "ano": "number",
+              "ordem_credito": "number"
+            }
+          ],
+          "como_roteirista": [
+            {
+              "filme_id": "string",
+              "titulo_filme": "string",
+              "ano": "number"
+            }
+          ]
+        },
+        "estatisticas": {
+          "total_filmes": "number",
+          "anos_ativo": {
+            "inicio": "number",
+            "fim": "number"
+          }
+        },
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+    },
+    "agregacoes": {
+      "description": "Documentos para consultas agregadas e estatísticas",
+      "structure": {
+        "_id": "agregacao:tipo:periodo",
+        "_rev": "revision_hash",
+        "type": "agregacao",
+        "subtipo": "generos | anos | paises | empresas",
+        "periodo": "string",
+        "dados": {
+          "item": {
+            "nome": "string",
+            "contagem": "number",
+            "filmes": ["filme_id"],
+            "estatisticas": {
+              "nota_media": "number",
+              "bilheteria_total": "number",
+              "premios_total": "number"
+            }
+          }
+        },
+        "created_at": "timestamp",
+        "updated_at": "timestamp"
+      }
+    }
+  }
+}

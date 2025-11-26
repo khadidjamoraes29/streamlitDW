@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: filmes_db_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: filmes
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user123
+    ports:
+      - "33016:3306"
+    volumes:
+      - filmes_data:/var/lib/mysql
+    networks:
+      - filmes_network
+
+  couchdb:
+    image: couchdb:3.3
+    container_name: filmes_db_couchdb
+    restart: always
+    environment:
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: admin123
+    ports:
+      - "5984:5984"
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+      - couchdb_config:/opt/couchdb/etc/local.d
+    networks:
+      - filmes_network
+
+volumes:
+  filmes_data:
+  couchdb_data:
+  couchdb_config:
+
+networks:
+  filmes_network:
+    driver: bridge
