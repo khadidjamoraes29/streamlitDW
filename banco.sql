@@ -10,6 +10,7 @@ CREATE TABLE Filmes (
     id_filme INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     link_imdb VARCHAR(500),
+    ano_lancamento INT,
     duracao_minutos INT,
     classificacao_mpa VARCHAR(20),
     nota_imdb DECIMAL(3,1),

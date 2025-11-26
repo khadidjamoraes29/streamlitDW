@@ -2,14 +2,9 @@ import streamlit as st
 import pandas as pd
 from sqlalchemy import create_engine
 
-# Configurações do MySQL
-HOST = "127.0.0.1"
-USER = "root"
-PASSWORD = "Khadidja"
-DATABASE = "filmes_dw"
 
 # Criar engine de conexão
-engine = create_engine(f"mysql+pymysql://{USER}:{PASSWORD}@{HOST}/{DATABASE}")
+engine = create_engine("mysql+pymysql://root:Khadidja@127.0.0.1/filmes_dw")
 
 st.title("📊 Análises Dimensionais - Data Warehouse de Filmes")
 
