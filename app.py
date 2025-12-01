@@ -4,7 +4,7 @@ import plotly.express as px
 from sqlalchemy import create_engine
 
 # conexão (ajuste se necessário)
-engine = create_engine("mysql+pymysql://root:Khadidja@127.0.0.1/filmes_dw")
+engine = create_engine("mysql+pymysql://root:root123@modelagemroberta.yagomouraferraz.uk:33016/filmes_dw")
 
 st.set_page_config(page_title="DW Filmes - OLAP (Streamlit)", layout="wide")
 st.title("🎬 DW Filmes — Análises Dimensionais")
